@@ -10,33 +10,30 @@ class App extends Component {
     super();
     this.handleClick = this.handleClick.bind(this);
     this.state = {
-      currentApp: null,
-      headline: "Welcome",
+      currentApp: null
     }
   }
   handleClick(icon) {
-    if (icon === "Banana") {
-      this.setState({ currentApp: <Tictactoe /> })
-      this.setState({ headline: "Tictactoe" })
-    }
-    if (icon === "Shark") {
-      this.setState({ currentApp: <BankApp /> })
-      this.setState({ headline: "Banking App" })
-    }
-    if (icon === "Dog") {
-      this.setState({ currentApp: <Cities /> })
-      this.setState({ headline: "Cities and Communities App" })
-    }
-    return
+    this.setState({currentApp:icon});
   }
   render() {
+    let displayApp;
+    if (this.state.currentApp === "Tictactoe") {
+      displayApp=<Tictactoe />
+    }
+    else if (this.state.currentApp === "Banking App") {
+      displayApp=<BankApp />
+    }
+    else if (this.state.currentApp === "Cities and Communities") {
+      displayApp=<Cities />
+    }
     return (
       <div className="App">
 
         <MyHeader handleClick={this.handleClick} />
-        <h1>{this.state.headline}</h1>
+        <h1>{this.state.currentApp}</h1>
         <div className="App-body">
-          {this.state.currentApp}
+          {displayApp}
         </div>
       </div>
     )

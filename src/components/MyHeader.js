@@ -11,11 +11,11 @@ class MyHeader extends React.Component {
 
     render() {
         return (
-            <div>
-                <img src={logo1} className="App-logo" alt="Banana" value='banana' onClick={(e) => this.props.handleClick(e.target.alt)} />
-                <img src={logo2} className="App-logo" alt="Shark" value='shark' onClick={(e) => this.props.handleClick(e.target.alt)} />
-                <img src={logo3} className="App-logo" alt="Dog" value='dog' onClick={(e) => this.props.handleClick(e.target.alt)} />
-                <img src={logo4} className="App-logo" alt="Cowmoon" value='cowmoon' onClick={(e) => this.props.handleClick(e.target.alt)} />
+            <div onClick={(e) => this.props.handleClick(e.target.getAttribute("value"))}>
+                <img src={logo1} className="App-logo" alt="Banana" value='Tictactoe'/>
+                <img src={logo2} className="App-logo" alt="Shark" value='Banking App'/>
+                <img src={logo3} className="App-logo" alt="Dog" value='Cities and Communities'/>
+                <img src={logo4} className="App-logo" alt="Cowmoon" value='cowmoon'/>
             </div>
         )
     }

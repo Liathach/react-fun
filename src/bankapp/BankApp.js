@@ -12,6 +12,7 @@ class BankApp extends React.Component {
 
     render() {
         return (
+            <div>
             <div className="AccountOps">
                 <span id="idAccountOpen">Account Creation</span><br />
                 <h6><input name= "acctName" type="text" value={this.state.name} onChange={this.handleChange}placeholder="New account name"
@@ -22,7 +23,11 @@ class BankApp extends React.Component {
                  <span id="idAccountManage">Account Management</span><br />
                  <button>Deposit</button> <button>Withdraw</button> <button>Delete Acct</button><br /><br />
                  <span id="idAccountStats">Account Stats</span><br />
-                 <AcctOutput />
+                 
+            </div>
+            <div className="RightPanel">
+            <AcctOutput />
+            </div>
             </div>
         )
     }
