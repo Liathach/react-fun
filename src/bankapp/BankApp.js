@@ -1,6 +1,8 @@
 import React from 'react';
 import './bankapp.css';
 import AcctOutput from '../components/AcctOutput.js';
+import Account from '../components/Account.js';
+import AcctControls from '../components/AcctControls';
 
 class BankApp extends React.Component {
     constructor() {
@@ -19,7 +21,7 @@ class BankApp extends React.Component {
                 /></h6>
                 <h6><input type="number" value={this.state.balance} onChange={this.handleChange} placeholder="Starting balance"
                 /></h6>
-                 <button>Create Account</button><br /><br />
+                 <button onClick={this.addAcct}>Create Account</button><br /><br />
                  <span id="idAccountManage">Account Management</span><br />
                  <button>Deposit</button> <button>Withdraw</button> <button>Delete Acct</button><br /><br />
                  <span id="idAccountStats">Account Stats</span><br />
