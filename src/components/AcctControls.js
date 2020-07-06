@@ -1,5 +1,35 @@
 import React from 'react';
-import Account from 'Account.js';
+
+//Add class Account here
+
+class Account extends React.Component {
+
+    constructor(name, balance) {
+        this.name = name;
+        this.balance = balance;
+    }
+
+    deposit(amount) {
+        this.balance += Number(amount);
+        return this.balance;
+    }
+
+    withdraw(amount) {
+        this.balance -= Number(amount);
+        return this.balance;
+    }
+
+    acctBalance() {
+        return this.balance;
+    }
+    
+
+    
+    render() {
+return;
+}
+
+}
 
 class AcctControls extends React.Component {
     constructor() {
@@ -73,4 +103,4 @@ class AcctControls extends React.Component {
 
 }
 
-export default { AcctControls };
+export default { Account, AcctControls };

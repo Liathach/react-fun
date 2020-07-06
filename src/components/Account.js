@@ -23,6 +23,8 @@ class Account extends React.Component {
         return this.balance;
     }
     
+
+    
     render() {
 return;
 }
