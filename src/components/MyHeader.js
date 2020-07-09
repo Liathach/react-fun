@@ -5,9 +5,6 @@ import logo3 from '../assets/Dog.svg';
 import logo4 from '../assets/Cowmoon.svg';
 
 class MyHeader extends React.Component {
-    constructor() {
-        super();
-    }
 
     render() {
         return (

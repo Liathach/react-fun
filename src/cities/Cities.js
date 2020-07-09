@@ -1,9 +1,6 @@
 import React from 'react';
 
 class Cities extends React.Component {
-    constructor() {
-        super();
-    }
 
     render() {
         return (
