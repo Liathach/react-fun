@@ -3,7 +3,7 @@ import './bankapp.css';
 import SumOfAccounts from './SumOfAccounts';
 import Highest from './Highest';
 import Lowest from './Lowest';
-import Card from './Cardlist';
+import Cardlist from './Cardlist';
 
 
 class AcctControls extends Component {
@@ -16,6 +16,7 @@ class AcctControls extends Component {
         }
 
         this.newAccount = {
+            key: null,
             name: "",
             balance: 0,
         }
@@ -28,11 +29,28 @@ class AcctControls extends Component {
         this.lowestAcctBalance = this.lowestAcctBalance.bind(this);
     }
 
-    addAcct(name, balance) {
+    addAcct(key,name, balance ) {
+
         let addedAccount = this.newAccount;
+        if (key === null) {
+
+            if (this.state.acctArray.length >= 1) {
+                let maxKey = this.acctArray.reduce((a, b) =>
+                    a.key > b.key ? a : b).key;
+                key = maxKey + 1;
+                this.newAccount[key]=key;
+
+            }
+            else {
+                key = 1;
+                this.newAccount[key]=key;
+            }
+        }
         this.setState({ acctArray: [...this.state.acctArray, addedAccount] });
+        
 
         this.newAccount = {
+            key: key++,
             name: "",
             balance: 0,
         }
@@ -75,12 +93,12 @@ class AcctControls extends Component {
             if (highestAcctBal < highBalance) {
                 highestAcctBal = highBalance;
                 highestAcctName = acctName;
-                
-            }    
-        }    
+
+            }
+        }
         return `${highestAcctName}: $${highestAcctBal}`;
     }
-        
+
 
     lowestAcctBalance() {
         let lowestAcctBal = Number.POSITIVE_INFINITY;
@@ -91,10 +109,10 @@ class AcctControls extends Component {
             if (lowBalance < lowestAcctBal) {
                 lowestAcctBal = lowBalance;
                 lowestAcctName = acctName;
-            }    
-        }  
-            return `${lowestAcctName}: $${lowestAcctBal}`;
-        }    
+            }
+        }
+        return `${lowestAcctName}: $${lowestAcctBal}`;
+    }
 
 
     render() {
@@ -109,13 +127,13 @@ class AcctControls extends Component {
                 <div>
                     <h3>Accounts Summary</h3>
                     <Highest highest={this.highestAcctBalance} length={this.state.acctArray.length} />
-                    <Lowest lowest={this.lowestAcctBalance} length={this.state.acctArray.length}/>
+                    <Lowest lowest={this.lowestAcctBalance} length={this.state.acctArray.length} />
                     <SumOfAccounts sum={this.totalAcctBalance} length={this.state.acctArray.length} />
 
 
                 </div>
                 <div className="RightPanel">
-                    <Card />
+                    <Cardlist array={this.state.acctArray} />
                 </div>
             </div>
         )

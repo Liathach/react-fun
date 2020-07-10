@@ -1,18 +1,19 @@
 import React from 'react';
 import Card from './Card';
+import './bankapp.css';
 
-const CardList = ({ robots }) => {
+const CardList = ({ array }) => {
     return (
         <div>
         {
-              robots.map((user, i) => {
+              array.map((user, i) => {
         return (
         
         <Card 
-        key={i} 
-        id={robots[i].id} 
-        name={robots[i].name} 
-        email={robots[i].email}
+        // key={i} 
+        // id={acctArray[i].id} 
+        name={array[i].name} 
+        balance={array[i].balance}
         />
         );
     })  
