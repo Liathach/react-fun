@@ -1,14 +1,11 @@
 import React, { Component } from 'react'
 
-export class SumOfAccounts extends Component {
-
-    render(props) {
-
-
+export class Lowest extends Component {
+    render() {
         if (this.props.length === 0) { 
             return (
                 <div>
-                    <h3>Account Total: Zero</h3>
+                    <h3>No accounts!</h3>
                 </div>
             )
         }
@@ -16,12 +13,12 @@ export class SumOfAccounts extends Component {
         else {
             return (
                 <div>
-                    <h3>Account Total: {this.props.sum()}</h3>
+                    <h3>Lowest account: {this.props.lowest()}</h3>
                 </div>
             )
         }
-
     }
+    
 }
 
-export default SumOfAccounts;
+export default Lowest
