@@ -14,9 +14,8 @@ class AcctControls extends Component {
 
             ],
         }
-
+        this.counter = 0;
         this.newAccount = {
-            key: null,
             name: "",
             balance: 0,
         }
@@ -27,30 +26,21 @@ class AcctControls extends Component {
         this.lengthCheck = this.lengthCheck.bind(this);
         this.highestAcctBalance = this.highestAcctBalance.bind(this);
         this.lowestAcctBalance = this.lowestAcctBalance.bind(this);
+        this.test = this.test.bind(this);
     }
 
-    addAcct(key,name, balance ) {
+    addAcct(key) {
+        // addAcct(key,name, balance ) {
 
+        let determineId = this.state.acctArray.findIndex(value => value.name === this.newAccount.name)
         let addedAccount = this.newAccount;
-        if (key === null) {
+        determineId === -1 ? this.setState({ acctArray: [...this.state.acctArray, addedAccount] }) : alert('Please input a unique account name.')
 
-            if (this.state.acctArray.length >= 1) {
-                let maxKey = this.acctArray.reduce((a, b) =>
-                    a.key > b.key ? a : b).key;
-                key = maxKey + 1;
-                this.newAccount[key]=key;
 
-            }
-            else {
-                key = 1;
-                this.newAccount[key]=key;
-            }
-        }
-        this.setState({ acctArray: [...this.state.acctArray, addedAccount] });
-        
+        //this.setState({ acctArray: [...this.state.acctArray, addedAccount] });
+
 
         this.newAccount = {
-            key: key++,
             name: "",
             balance: 0,
         }
@@ -68,7 +58,37 @@ class AcctControls extends Component {
         return this.state.acctArray.length;
     };
 
+    getAccount = (nameKey) => {
+      console.log (this.state.acctArray.length)
+        for (var i=0; i < this.state.acctArray.length; i++) {
+            if (this.state.acctArray[i].name === nameKey) {
 
+                console.log (this.state.acctArray[i])
+                return this.state.acctArray[i];
+              }
+            }
+        
+        }
+    test() {
+        let name = "Dave";
+        let amount = 1;
+        this.getAccount(name);
+        // let index = this.state.acctArray.findIndex(value => value.name === sparps);
+        // console.log(index);
+    }
+        deposit(amount) {
+            this.balance += Number(amount);
+            console.log(this.balance);
+            return this.balance;
+        }
+        depositToAcct(name, value) {
+            // let index = this.acctArray.findIndex(acctFinder => acctFinder.name === name);
+            let index = this.acctArray.findIndex(value => value.name === name);
+
+            let transaction = this.idTransaction.value;
+            this.acctArray[index].deposit(transaction);
+        }
+        
 
     totalAcctBalance() {
         console.log(this.state.acctArray.length);
@@ -83,7 +103,7 @@ class AcctControls extends Component {
 
         return totalBalance;
     }
-
+    
     highestAcctBalance() {
         let highestAcctBal = 0;
         let highestAcctName;
@@ -125,6 +145,7 @@ class AcctControls extends Component {
                     <button onClick={this.addAcct}>Create Account</button>
                 </div>
                 <div>
+                    <button onClick={this.test}>Test</button>
                     <h3>Accounts Summary</h3>
                     <Highest highest={this.highestAcctBalance} length={this.state.acctArray.length} />
                     <Lowest lowest={this.lowestAcctBalance} length={this.state.acctArray.length} />
@@ -132,6 +153,17 @@ class AcctControls extends Component {
 
 
                 </div>
+
+                <div>
+                <input type="number" id="idTransaction"/>
+                <br />
+                <button onClick={this.depositToAcct}>Deposit</button>
+                <button>Withdraw</button>
+                <br />
+                <button>Delete Account</button>
+
+                </div>
+
                 <div className="RightPanel">
                     <Cardlist array={this.state.acctArray} />
                 </div>
