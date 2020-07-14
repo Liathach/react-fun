@@ -14,10 +14,10 @@ class AcctControls extends Component {
 
             ],
         }
-        this.counter = 0;
+        // this.counter = 0;
         this.newAccount = {
             name: "",
-            balance: 0,
+            balance: Number(0),
         }
 
         this.addAcct = this.addAcct.bind(this);
@@ -26,7 +26,10 @@ class AcctControls extends Component {
         this.lengthCheck = this.lengthCheck.bind(this);
         this.highestAcctBalance = this.highestAcctBalance.bind(this);
         this.lowestAcctBalance = this.lowestAcctBalance.bind(this);
-        this.test = this.test.bind(this);
+        this.getAccount = this.getAccount.bind(this);
+        this.depositToAcct=this.depositToAcct.bind(this);
+        this.withdrawFromAcct=this.withdrawFromAcct.bind(this);
+        this.deleteAcct=this.deleteAcct.bind(this);
     }
 
     addAcct(key) {
@@ -58,37 +61,65 @@ class AcctControls extends Component {
         return this.state.acctArray.length;
     };
 
-    getAccount = (nameKey) => {
-      console.log (this.state.acctArray.length)
-        for (var i=0; i < this.state.acctArray.length; i++) {
-            if (this.state.acctArray[i].name === nameKey) {
-
-                console.log (this.state.acctArray[i])
-                return this.state.acctArray[i];
+    getAccount (nameKey) {
+        console.log (this.state.acctArray.length)
+          for (var i=0; i < this.state.acctArray.length; i++) {
+              if (this.state.acctArray[i].name === nameKey) {
+                  return this.state.acctArray[i];
+                }
               }
             }
-        
-        }
-    test() {
-        let name = "Dave";
-        let amount = 1;
-        this.getAccount(name);
-        // let index = this.state.acctArray.findIndex(value => value.name === sparps);
-        // console.log(index);
-    }
-        deposit(amount) {
-            this.balance += Number(amount);
-            console.log(this.balance);
-            return this.balance;
-        }
-        depositToAcct(name, value) {
+        depositToAcct() {
+            let name = "Dave";
+            let amount = 100;
+            let change = this.getAccount(name);
+            let newArr = this.state.acctArray;
+            console.log(change);
             // let index = this.acctArray.findIndex(acctFinder => acctFinder.name === name);
-            let index = this.acctArray.findIndex(value => value.name === name);
-
-            let transaction = this.idTransaction.value;
-            this.acctArray[index].deposit(transaction);
+            let index = this.state.acctArray.findIndex(value => value.name === name);
+            console.log(typeof(change.balance));
+            change.balance = parseInt(change.balance);
+            console.log(typeof(change.balance));
+            change.balance += amount;
+            console.log(change);
+            newArr.splice(index, 1, change);
+            console.log(newArr, amount);
+            this.setState({acctArray: newArr});
+            // let transaction = this.idTransaction.value;
+            // this.acctArray[index].deposit(transaction);
         }
-        
+     
+        withdrawFromAcct() {
+            let name = "Dave";
+            let amount = 100;
+            let change = this.getAccount(name);
+            let newArr = this.state.acctArray;
+            console.log(change);
+            // let index = this.acctArray.findIndex(acctFinder => acctFinder.name === name);
+            let index = this.state.acctArray.findIndex(value => value.name === name);
+            console.log(typeof(change.balance));
+            change.balance = parseInt(change.balance);
+            console.log(typeof(change.balance));
+            change.balance -= amount;
+            console.log(change);
+            newArr.splice(index, 1, change);
+            console.log(newArr);
+            this.setState({acctArray: newArr});
+            // let transaction = this.idTransaction.value;
+            // this.acctArray[index].deposit(transaction);
+        }
+        deleteAcct() {
+            let name = "Dave";
+            let change = this.getAccount(name);
+            let newArr = this.state.acctArray;
+            console.log(change);
+            // let index = this.acctArray.findIndex(acctFinder => acctFinder.name === name);
+            let index = this.state.acctArray.findIndex(value => value.name === name);
+            newArr.splice(index, 1);
+            console.log(newArr);
+            this.setState({acctArray: newArr});
+
+        }
 
     totalAcctBalance() {
         console.log(this.state.acctArray.length);
@@ -101,7 +132,7 @@ class AcctControls extends Component {
         // console.log(totalBalance);
         // idAcctSum.innerText = `The total balance of all acounts is $${totalBalance}`;
 
-        return totalBalance;
+        return `$${totalBalance}`;
     }
     
     highestAcctBalance() {
@@ -145,7 +176,6 @@ class AcctControls extends Component {
                     <button onClick={this.addAcct}>Create Account</button>
                 </div>
                 <div>
-                    <button onClick={this.test}>Test</button>
                     <h3>Accounts Summary</h3>
                     <Highest highest={this.highestAcctBalance} length={this.state.acctArray.length} />
                     <Lowest lowest={this.lowestAcctBalance} length={this.state.acctArray.length} />
@@ -158,14 +188,19 @@ class AcctControls extends Component {
                 <input type="number" id="idTransaction"/>
                 <br />
                 <button onClick={this.depositToAcct}>Deposit</button>
-                <button>Withdraw</button>
+                <button onClick={this.withdrawFromAcct}>Withdraw</button>
                 <br />
-                <button>Delete Account</button>
+                <button onClick={this.deleteAcct}>Delete Account</button>
 
                 </div>
 
                 <div className="RightPanel">
-                    <Cardlist array={this.state.acctArray} />
+                    <Cardlist 
+                    array={this.state.acctArray} 
+                    deposit={this.depositToAcct}
+                    withdraw={this.withdrawFromAcct}
+                    remove={this.deleteAcct}
+                    />
                 </div>
             </div>
         )
