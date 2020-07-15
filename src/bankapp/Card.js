@@ -1,6 +1,9 @@
 import React from 'react';
 import './bankapp.css'
 
+
+
+
 let changeValue = {
     amount: Number(0),
 }
@@ -19,10 +22,10 @@ const Card = ({name, balance, deposit, withdraw, remove}) => {
                 <p>{balance}</p>
                 <input type="number" id="amount" onChange={handleChange} /><br />
                 <br />
-                <button onClick={deposit}>Deposit</button>
+                {/* <button onClick={deposit}>Deposit</button>
                 <button onClick={withdraw}>Withdraw</button>
                 <br />
-                <button onClick={remove}>Delete Account</button>
+                <button onClick={remove}>Delete Account</button> */}
             </div>
 
     )
