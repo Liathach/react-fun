@@ -228,13 +228,13 @@ class AcctControls extends Component {
                 </div>
 
                 <div className="RightPanel">
-                    <Cardlist
-                        array={this.state.acctArray}
-                        deposit={this.depositToAcct}
-                        withdraw={this.withdrawFromAcct}
-                        remove={this.deleteAcct}
-                    />
-                </div>
+                <Cardlist
+                array={this.state.acctArray}
+                deposit={this.depositToAcct}
+                withdraw={this.withdrawFromAcct}
+                remove={this.deleteAcct}
+                />
+            </div>
             </div>
         )
     }
