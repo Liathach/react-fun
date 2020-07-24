@@ -41,11 +41,11 @@ class AcctControls extends Component {
 
         let determineId = this.state.acctArray.findIndex(value => value.name === this.newAccount.name)
         let addedAccount = this.newAccount;
-        // determineId === -1 ? this.setState({ acctArray: [...this.state.acctArray, addedAccount] }) : alert('Please input a unique account name.')
-        this.ctrl.addAcct(this.newAccount.name, this.newAccount.balance);
-        this.setState({ count: this.state.count + 1 })
-        // this.setState({ acctArray: [...this.state.acctArray, addedAccount] });
-
+        determineId === -1 ? this.setState({ acctArray: [...this.state.acctArray, addedAccount] }) : alert('Please input a unique account name.')
+        // this.ctrl.addAcct(this.newAccount.name, this.newAccount.balance);
+        // this.setState({ count: this.state.count + 1 })
+        this.setState({ acctArray: [...this.state.acctArray, addedAccount] });
+        console.log(this.state.acctArray);
 
         this.newAccount = {
             name: "",
@@ -73,9 +73,7 @@ class AcctControls extends Component {
             }
         }
     }
-    depositToAcct() {
-        let name = "Dave";
-        let amount = 100;
+    depositToAcct(amount, name) {
         let change = this.getAccount(name);
         let newArr = this.state.acctArray;
         console.log(change);
@@ -93,9 +91,7 @@ class AcctControls extends Component {
         // this.acctArray[index].deposit(transaction);
     }
 
-    withdrawFromAcct() {
-        let name = "Dave";
-        let amount = 100;
+    withdrawFromAcct(amount, name) {
         let change = this.getAccount(name);
         let newArr = this.state.acctArray;
         console.log(change);
@@ -112,8 +108,7 @@ class AcctControls extends Component {
         // let transaction = this.idTransaction.value;
         // this.acctArray[index].deposit(transaction);
     }
-    deleteAcct() {
-        let name = "Dave";
+    deleteAcct(name) {
         let change = this.getAccount(name);
         let newArr = this.state.acctArray;
         console.log(change);
@@ -169,44 +164,25 @@ class AcctControls extends Component {
         return `${lowestAcctName}: $${lowestAcctBal}`;
     }
 
-    dnlAdd = () => {
-        console.log("We're in dnlAdd");
-        this.ctrl.addAcct("Dave", 500);
-    }
-
-    dnlDeposit = () => {
-        console.log("We're in dnlStuff");
-        this.ctrl.depositToAcct("Dave", 200);
-
-    }
-    dnlShow = () => {
-        console.log("We're in dnlShow");
-        console.log(this.ctrl);
-    }
-
-    onClick = (e) => {
-        console.log(e.target);
-        console.log(e.target.getAttribute("myaccount"));
-    }
+    // onClick = (e) => {
+    //     console.log(e.target);
+    //     console.log(e.target.getAttribute("myaccount"));
+    // }
 
     render() {
 
-        const cards = this.ctrl.acctArray.map((e, i) => {
+        const cards = this.state.acctArray.map((e, i) => {
             console.log(e, i);
-            return <AccountCards key={i} account={e} />
+            return <AccountCards key={i} account={e} deposit={this.depositToAcct} withdraw={this.withdrawFromAcct} delete={this.deleteAcct} />
         })
 
         return (
             <div onClick={this.onClick}>
-                {cards}
                 <div className="AccountOps">
                     <span id="idAccountOpen">Account Creation</span><br />
                     <input type="text" id="name" placeholder="Input Account Name" onChange={this.handleChange} />
                     <input type="number" id="balance" placeholder="Input Initial Balance" onChange={this.handleChange} /><br />
                     <button onClick={this.addAcct}>Create Account</button>
-                    <button onClick={this.dnlAdd}>Dave add</button>
-                    <button onClick={this.dnlDeposit}>Dave deposit</button>
-                    <button onClick={this.dnlShow}>Dave show</button>
 
                 </div>
                 <div>
@@ -217,24 +193,16 @@ class AcctControls extends Component {
 
                 </div>
 
-                <div>
-                    <input type="number" id="idTransaction" />
-                    <br />
-                    <button onClick={this.depositToAcct}>Deposit</button>
-                    <button onClick={this.withdrawFromAcct}>Withdraw</button>
-                    <br />
-                    <button onClick={this.deleteAcct}>Delete Account</button>
-
-                </div>
 
                 <div className="RightPanel">
-                <Cardlist
+                    {cards}
+                    {/* <Cardlist
                 array={this.state.acctArray}
                 deposit={this.depositToAcct}
                 withdraw={this.withdrawFromAcct}
                 remove={this.deleteAcct}
-                />
-            </div>
+                /> */}
+                </div>
             </div>
         )
     }

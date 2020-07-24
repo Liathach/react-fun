@@ -13,9 +13,7 @@ test('testing account', () => {
     ctrl.depositToAcct("Dave", 200);
     expect(ctrl.balanceForAcct("Dave")).toBe(700);
 
-    ctrl.acctArray.forEach(e => {
-        console.log(e);
-    })
+
     
         
 
